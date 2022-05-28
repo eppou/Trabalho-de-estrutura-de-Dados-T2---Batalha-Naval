@@ -2,19 +2,20 @@
 
 typedef struct 
 {
-    char com[2];
-    float i;
-    float x;
-    float y;
-    float w;
-    float h;
+    char com;
+    double i;
+    double x;
+    double y;
+    double w;
+    double h;
     char corb[30];
     char corp[30];
 }RETANGULO;
 
-void *createrectangle(float i,float x,float y,float w,float h, char corb[30],char corp[30]){
+void *createrectangle(double i,double x,double y,double w,double h, char corb[30],char corp[30]){
     RETANGULO *R=(RETANGULO*)malloc(sizeof(RETANGULO));
-    strcpy(R->com,"r");
+    //strcpy(R->com,"r");
+    R->com = 'r';
     R->i=i;
     R->x=x;
     R->y=y;
@@ -22,15 +23,13 @@ void *createrectangle(float i,float x,float y,float w,float h, char corb[30],cha
     R->h=h;
     strcpy(R->corb,corb);
     strcpy(R->corp,corp);
-    void *ptrRectangle;
-    ptrRectangle = R;
-    return(ptrRectangle);
+    return(R);
 }
 
 int  testeRetangulo (void *r){
-    RETANGULO *rr=(RETANGULO*)malloc(sizeof(RETANGULO));
-    rr=(RETANGULO*)r;
-    if(strcmp(rr->com,"r")==0){
+    RETANGULO *rr= (RETANGULO*)r;
+   // rr=(RETANGULO*)r;
+    if(rr->com=='r'){
         return(1);
     }
     else{
@@ -39,7 +38,7 @@ int  testeRetangulo (void *r){
 }
 
 void createSVGrectangle(void *dataa, FILE *arquivo){
-        float xr,yr,wr,hr;
+        double xr,yr,wr,hr;
         char corbr[30],corpr[30];
         xr=((RETANGULO*)dataa)->x;
         yr=((RETANGULO*)dataa)->y;
@@ -47,6 +46,6 @@ void createSVGrectangle(void *dataa, FILE *arquivo){
         hr=((RETANGULO*)dataa)->h;
         strcpy(corbr,((RETANGULO*)dataa)->corb);
         strcpy(corpr,((RETANGULO*)dataa)->corp);
-        fprintf(arquivo, "\n\t<rect x=\" %f \" y=\" %f \" width=\" %f \" height=\" %f \" stroke=\" %s \" stroke-width=\" 1px \" fill=\" %s \" opacity=\" 1 \"/>",xr,yr,wr,hr,corbr,corpr);
+        fprintf(arquivo, "\n\t<rect x=\" %lf \" y=\" %lf \" width=\" %lf \" height=\" %lf \" stroke=\" %s \" stroke-width=\" 1px \" fill=\" %s \" opacity=\" 1 \"/>",xr,yr,wr,hr,corbr,corpr);
 
 }
